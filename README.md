@@ -15,14 +15,15 @@ Para ilustrar el uso del framework Spring, y el ambiente de desarrollo para el u
 	* GrammarChecker será un bean, que tiene como dependencia algo de tipo 'SpellChecker'.
 	* EnglishSpellChecker y SpanishSpellChecker son los dos posibles candidatos a ser inyectados. Se debe seleccionar uno, u otro, mas NO ambos (habría conflicto de resolución de dependencias). Por ahora haga que se use EnglishSpellChecker.
 
-#### Función de etiqueta Service -> La anotación Spring @Service se utiliza con clases que proporcionan algunas funcionalidades de negocio. El contexto de Spring detectará automáticamente estas clases cuando se utilice la configuración basada en anotaciones y el escaneo del classpath para encontrar beans.
+#### Función de etiqueta Service 
+La anotación Spring @Service se utiliza con clases que proporcionan algunas funcionalidades de negocio. El contexto de Spring detectará automáticamente estas clases cuando se utilice la configuración basada en anotaciones y el escaneo del classpath para encontrar beans.
 
-#### Función de etiqueta Autowired -> La anotación @Autowired marca un constructor, un método Setter, unas propiedades y un método Config() como autowired, es decir, "inyectando beans" (objetos) en tiempo de ejecución mediante el mecanismo de inyección de dependencias de Spring
+#### Función de etiqueta Autowired 
+La anotación @Autowired marca un constructor, un método Setter, unas propiedades y un método Config() como autowired, es decir, "inyectando beans" (objetos) en tiempo de ejecución mediante el mecanismo de inyección de dependencias de Spring
 
-#### Función de etiqueta Component -> @Component registra un bean dentro del framework sin mayor efecto
+#### Función de etiqueta Component
+@Component registra un bean dentro del framework sin mayor efecto
 
-
-###Función de etiqueta Component -> 
  
 5.	Haga un programa de prueba, donde se cree una instancia de GrammarChecker mediante Spring, y se haga uso de la misma:
 

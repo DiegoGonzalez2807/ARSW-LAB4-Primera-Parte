@@ -24,15 +24,59 @@ La anotación @Autowired marca un constructor, un método Setter, unas propiedad
 #### Función de etiqueta Component
 @Component registra un bean dentro del framework sin mayor efecto
 
- 
-5.	Haga un programa de prueba, donde se cree una instancia de GrammarChecker mediante Spring, y se haga uso de la misma:
+Para este caso se usa la etiqueta @Service en la clase GrammarChecker ya que este va a contener los beans candidatos a inyectarse. Así mismo se pone la etiqueta @Autowired a la variable sc, la cual es la encargada de recibir la inyección del SpellChecker que necesite el usuario. Se usa @Qualifier para generar versatilidad cuando el usuario necesite otra inyección, solo debe poner el nombre de esta para que la variable sc la acepte.
 
-	```java
+```java
+	@Service
+public class GrammarChecker {
+
+	@Autowired
+	@Qualifier("English")
+	SpellChecker sc;
+```
+
+Se pone la etiqueta @Component en la clase EnglishSpellChecker ya que este es un bean candidato para inyectarse. No se puede poner otra etiqueta ya que las otras dos tienen usos específicos y @Component es el padre de estas, por lo que se hace una generalidad.
+
+```java
+@Component
+@Qualifier("English")
+public class EnglishSpellChecker implements SpellChecker {
+
+	@Override
+	public String checkSpell(String text) {		
+		return "Checked with english checker:"+text;
+	}      
+}
+```
+![img1](https://github.com/DiegoGonzalez2807/ARSW-LAB4-Primera-Parte/blob/master/img/IMAGEN2.png)
+ 
+4.	Haga un programa de prueba, donde se cree una instancia de GrammarChecker mediante Spring, y se haga uso de la misma:
+
+```java
 	public static void main(String[] args) {
 		ApplicationContext ac=new ClassPathXmlApplicationContext("applicationContext.xml");
 		GrammarChecker gc=ac.getBean(GrammarChecker.class);
 		System.out.println(gc.check("la la la "));
 	}
-	```
+```
 	
-6.	Modifique la configuración con anotaciones para que el Bean ‘GrammarChecker‘ ahora haga uso del  la clase SpanishSpellChecker (para que a GrammarChecker se le inyecte EnglishSpellChecker en lugar de  SpanishSpellChecker. Verifique el nuevo resultado.
+5.	Modifique la configuración con anotaciones para que el Bean ‘GrammarChecker‘ ahora haga uso del  la clase SpanishSpellChecker (para que a GrammarChecker se le inyecte EnglishSpellChecker en lugar de  SpanishSpellChecker. Verifique el nuevo resultado.
+```java
+@Component
+@Qualifier("Spanish")
+public class SpanishSpellChecker implements SpellChecker {
+```
+Para este caso primero se pone un calificativo a la clase SpanishSpellChecker y se le pone la etiqueta @Component para que Spring lo tome como candidato a ser inyectado en GrammarChecker.
+
+```java
+	@Service
+public class GrammarChecker {
+
+	@Autowired
+	@Qualifier("Spanish")
+	SpellChecker sc;
+```
+Luego, a la clase GrammarChecker se le cambio el calificativo de la variable sc a Spanish
+
+![img1](https://github.com/DiegoGonzalez2807/ARSW-LAB4-Primera-Parte/blob/master/img/IMAGEN1.png)
+
